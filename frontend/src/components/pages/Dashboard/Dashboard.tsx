@@ -13,7 +13,7 @@ const resType = t.type({
     caregivers: t.array(
         t.type({
             name: t.string,
-            patients: t.array(t.string)
+            patients: t.string
         })
     )
 });

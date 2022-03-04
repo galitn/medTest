@@ -14,8 +14,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: url("./assets/background-icon.svg") no-repeat
     hsla(221, 39%, 11%, 1);
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   color: #fff;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-attachment: fixed;
 }
