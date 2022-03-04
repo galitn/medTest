@@ -13,7 +13,7 @@ const resType = t.type({
     caregivers: t.array(
         t.type({
             name: t.string,
-            patients: t.array(t.string)
+            patients: t.string
         })
     )
 });
@@ -53,18 +53,18 @@ function useDashboard(params: { year: number }) {
         startLoading();
 
         return axios
-            .get<unknown>(endpoint(`reports/${params.year}`))
-            .then((response) => {
-                if (!resType.is(response)) {
-                    console.error(PathReporter.report(resType.decode(response)).join(", "));
-                    throw new Error("Error");
-                }
+        .get<unknown>(endpoint(`reports/${params.year}`))
+        .then((response) => {
+            if (!resType.is(response.data)) {
+                console.error(PathReporter.report(resType.decode(response)).join(", "));
+                throw new Error("Error");
+            }
 
-                setState({ type: "Resolved", report: response, isRefreshing: false });
-            })
-            .catch(() => {
-                setState({ type: "Rejected", error: "Error" });
-            });
+            setState({ type: "Resolved", report: response.data, isRefreshing: false });
+        })
+        .catch(() => {
+            setState({ type: "Rejected", error: "Error" });
+        });
     }, [params.year]);
 
     React.useEffect(() => {
@@ -83,7 +83,7 @@ const Dashboard = () => {
         case "Rejected":
             return <ErrorView message={state.error} onClickRetry={actions.fetchReport} />;
         case "Resolved":
-            return <TableView {...state} />;
+            return <TableView onClickRefresh={actions.fetchReport} {...state} />;
         default:
             assertNever(state);
             return <></>;
