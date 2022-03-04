@@ -20,6 +20,7 @@ export const getReport = async (req: Request, res: Response) => {
         FROM caregiver
         JOIN visit ON visit.caregiver = caregiver.id
         JOIN patient ON patient.id = visit.patient
+        where extract(year from visit.date) = ${req.params.year}
         GROUP BY caregiver.id;
     `;
    
