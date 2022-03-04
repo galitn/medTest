@@ -15,7 +15,6 @@ body {
   background: url("./assets/background-icon.svg") no-repeat
     hsla(221, 39%, 11%, 1);
   color: #fff;
-  background-repeat: no-repeat;
   background-position: left bottom;
   background-attachment: fixed;
 }

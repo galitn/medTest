@@ -53,18 +53,18 @@ function useDashboard(params: { year: number }) {
         startLoading();
 
         return axios
-            .get<unknown>(endpoint(`reports/${params.year}`))
-            .then((response) => {
-                if (!resType.is(response.data)) {
-                    console.error(PathReporter.report(resType.decode(response)).join(", "));
-                    throw new Error("Error");
-                }
+        .get<unknown>(endpoint(`reports/${params.year}`))
+        .then((response) => {
+            if (!resType.is(response.data)) {
+                console.error(PathReporter.report(resType.decode(response)).join(", "));
+                throw new Error("Error");
+            }
 
-                setState({ type: "Resolved", report: response.data, isRefreshing: false });
-            })
-            .catch(() => {
-                setState({ type: "Rejected", error: "Error" });
-            });
+            setState({ type: "Resolved", report: response.data, isRefreshing: false });
+        })
+        .catch(() => {
+            setState({ type: "Rejected", error: "Error" });
+        });
     }, [params.year]);
 
     React.useEffect(() => {
